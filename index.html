@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-framework="angularjs">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS Todo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>[ng-cloak] { display: none; }</style>
+</head>
+<body ng-app="todotest">
+<ng-view></ng-view>
+
+<script type="text/ng-template" id="todo.html">
+    <div class="container">
+
+
+    <section>
+        <header class="bottom15">
+            <h1 class="text-center">TODO</h1>
+
+            <form id="todo-form" ng-submit="addTodo()">
+                <input id="new-todo" placeholder="Add new task" class="form-control" ng-model="newTodo" ng-disabled="saving" autofocus>
+            </form>
+        </header>
+        <section ng-cloak>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input id="toggle-all" type="checkbox" ng-model="allChecked"  ng-checked="allChecked" ng-click="markAll(allChecked)">
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tr ng-repeat="todo in todos track by $index">
+                        <td class="view">
+                            <input class="toggle" type="checkbox" ng-model="todo.selected" ng-change="toggleSelected(todo)">
+                            <label>{{todo.title}}</label>
+                        </td>
+                        <td width="100">
+                            <i class="destroy glyphicon glyphicon-trash pointer" ng-click="removeTodo(todo)"></i>
+                        </td>
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <button class="btn btn-danger" ng-click="deleteSelectedTodos()">Delete all selected</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+
+        </section>
+    </section>
+    </div>
+</script>
+<script src="libs/angular/angular.js"></script>
+<script src="libs/angular-route/angular-route.js"></script>
+<script src="libs/angular-resource/angular-resource.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/todoCtrl.js"></script>
+<script src="js/services/todoStorage.js"></script>
+</body>
+</html>
